@@ -1,6 +1,9 @@
 #Simple-Ebiz-Webapp
 
 ##technoleges
-* peewee
+* peewee(ORM)
 * Flask
-* 
+* Sqlite
+
+## Main Function
+

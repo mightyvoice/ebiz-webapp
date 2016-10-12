@@ -20,11 +20,13 @@ def init_all_tables():
     count = 0;
     for i in Item.all_items:
     	count = count + 1;
-    print("Item表格共有行数：");
-    print (count);
+    print "Item表格共有行数：" + str(count);
     
     q = Item.Item.update(buyer="4k").where(Item.Item.buyer == "李旭");
     q.execute();
 
     DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
+
+def close_table():
+    pass
