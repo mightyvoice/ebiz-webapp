@@ -1,0 +1,93 @@
+body {
+	background-color: #E0F0FF;
+}
+
+h1{
+	color: purple;
+	text-align: center;
+}
+
+h2{
+	color: red;
+	/*text-align: center;*/
+}
+.show_all_btn, .show_deleted_btn {
+	background-color:#00B800;
+	border-color: #78859F;
+	border-style: solid;
+	color:#FFFFFF;
+	display: inline;
+	font-weight: bold;
+	padding: 3px;
+	margin:1px;
+
+}
+
+.show_deleted_btn {
+	background-color: grey;
+}
+
+.add_button,.submit_button,.retrn_to_home{
+	background-color:#234786;
+	border-color: #78859F;
+	border-style: solid;
+	color:#FFFFFF;
+	display: inline;
+	font-weight: bold;
+	padding: 3px;
+	margin:1px;
+}
+
+.revise_item, .delete_item{
+	background-color: #ADD6FF;
+	color:white;
+	border-color:white;
+}
+
+#add_item{
+	margin-top:30px;
+	margin-bottom: 5px;
+}
+
+#search_by_keyword {
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+
+/**********************All purchased Items table******************/
+table {
+	table-layout: fixed;
+}
+
+table, th, tr, td{
+    border: 1.8px solid black;
+    border-collapse: collapse;
+    padding: 3px;
+}
+
+
+th {
+	text-align: left;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+caption {
+	text-align: left;
+	font-size:20px;
+	margin:5px 0px;
+	font-weight:bold;
+}
+.th1 {
+	width:50px;
+}
+
+.th2 {
+	width:200px;
+	word-break:keep-all;
+}
+
+.th3 {
+	column-width:initial;
+	word-break: keep-all;
+}
