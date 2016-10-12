@@ -1,4 +1,6 @@
+#Simple-Ebiz-Webapp
 
-new test
-new test
-new test
+##technoleges
+* peewee
+* Flask
+* 
