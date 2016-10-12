@@ -3,7 +3,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+#My configurations:
 *.db
+all_purchased_items.db
+
 
 # C extensions
 *.so
