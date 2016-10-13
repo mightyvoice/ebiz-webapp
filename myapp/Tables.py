@@ -16,11 +16,9 @@ def init_all_tables():
     db.connect();
     db.create_tables([Item.Item, DeletedItem.DeletedItem], safe=True);
     # drop_all_tables();
-    Item.all_items = Item.Item.select();
-    count = 0;
-    for i in Item.all_items:
-    	count = count + 1;
-    print "Item表格共有行数：" + str(count);
+    Item.update_all_items();
+    # Item.all_items = Item.Item.select();
+    print "Item表格共有行数：" + str(len(Item.all_items));
     
     q = Item.Item.update(buyer="4k").where(Item.Item.buyer == "李旭");
     q.execute();
@@ -28,5 +26,3 @@ def init_all_tables():
     DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
 
-def close_table():
-    pass

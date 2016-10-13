@@ -131,6 +131,7 @@ def copy_a_deleted_item(_deletedItem):
                 buyPlace=_deletedItem.buyPlace,\
                 payCards=_deletedItem.payCards,\
                 ifDrop=_deletedItem.ifDrop);
+
 # -------------------------
 #     items summary row
 # --------------------------

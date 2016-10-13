@@ -2,6 +2,10 @@
 import datetime, time
 import math, random
 
+# def initGlobalVariable():
+# 	global all_items;
+# 	all_items = [];
+
 def get_current_date():
 	x = datetime.datetime.now();
 	return datetime.date(x.year, x.month, x.day);

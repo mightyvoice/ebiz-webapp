@@ -1,3 +1,4 @@
+from myapp import app
 import datetime
 from peewee import *
 from flask import (Flask, render_template, redirect, 
@@ -6,17 +7,14 @@ import json
 import Lib
 from Tables import *
 
-
-app = Flask(__name__);
-
+init_all_tables();
 
 @app.route('/')
-def index(saves="", date=Lib.get_current_date(), all_items=Item.Item.select(),\
-    st_date=Lib.get_current_date(), ed_date=Lib.get_current_date()):
+def index():
     all_items = Item.all_items;
     sumItem = Item.summary_item(all_items);
-    return render_template("index.html", saves=saves, date=date, \
-        all_items=Item.all_items, st_date=st_date, ed_date=ed_date, sumItem=sumItem);
+    return render_template("index.html", date=Lib.get_current_date(), \
+        all_items=all_items, st_date=Lib.get_current_date(), ed_date=Lib.get_current_date(), sumItem=sumItem);
 
 @app.route('/', methods=['POST'])
 def selected_items(saves=""):
@@ -100,7 +98,9 @@ def delete_item():
     # response.set_cookie('character', json.dumps(data));
     return response;
 
-@app.route('/show_deleted_item', methods=['get'])
+
+
+@app.route('/show_deleted_item')
 def show_deleted_item():
     deleted_items = DeletedItem.all_deleted_items;
     return render_template("deletedItems.html", all_items=deleted_items);
@@ -148,15 +148,3 @@ def save_revise_item():
     response = make_response(redirect(url_for('index')));
     # response.set_cookie('character', json.dumps(data));
     return response;
-
-def main():
-    init_all_tables();
-    #########################################
-    #########################################
-    # app.run(debug=True, host='192.168.1.139', port=8000);
-    app.run(debug=True, host='127.0.0.1', port=8000);
-
-
-if __name__ == '__main__':
-    main();
-        
