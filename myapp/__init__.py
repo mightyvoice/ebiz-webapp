@@ -8,4 +8,4 @@ app = Flask(__name__)
 
 
 
-import myapp.views, myapp.Item, myapp.DeletedItem
+import myapp.View, myapp.Item, myapp.DeletedItem
