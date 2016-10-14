@@ -7,6 +7,7 @@ __pycache__/
 #My configurations:
 *.db
 all_purchased_items.db
+.idea/
 
 
 # C extensions
