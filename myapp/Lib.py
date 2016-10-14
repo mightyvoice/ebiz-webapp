@@ -48,7 +48,6 @@ def get_cur_time_stamp():
     res = toInt(left + right);
     return res;
 
-
 def get_random_number():
     return random.randint(10000, 99999);
 
@@ -70,3 +69,5 @@ def max_common_substr_len(x, y):
             else:
                 c[i][j] = max(c[i - 1][j], c[i][j - 1]);
     return c[lx][ly];
+
+

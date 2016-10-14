@@ -32,5 +32,3 @@ def delete_all_deleted_items():
     for x in DeletedItem.select():
         x.delete_instance();
 
-if __name__ == '__main__':
-    pass;

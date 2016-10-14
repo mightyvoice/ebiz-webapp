@@ -1,20 +1,25 @@
 from myapp import app
 import datetime
 from peewee import *
-from flask import (Flask, render_template, redirect, 
+from flask import (Flask, render_template, redirect,
     url_for, request,  make_response, flash)
 import json
 import Lib
 from Tables import *
 
-init_all_tables();
+init_all_tables()
 
-@app.route('/')
-def index():
+@app.route('/', methods=['GET'])
+def home():
     all_items = Item.all_items;
     sumItem = Item.summary_item(all_items);
-    return render_template("index.html", date=Lib.get_current_date(), \
-        all_items=all_items, st_date=Lib.get_current_date(), ed_date=Lib.get_current_date(), sumItem=sumItem);
+    return render_template("index.html",
+                           date=Lib.get_current_date(),
+                           all_items=all_items,
+                           st_date=Lib.get_current_date(),
+                           ed_date=Lib.get_current_date(),
+                           sumItem=sumItem)
+
 
 @app.route('/', methods=['POST'])
 def selected_items(saves=""):
@@ -23,13 +28,11 @@ def selected_items(saves=""):
     data.update(dict(request.form.items()));
     st = data['start_date']
     ed = data['end_date']
-    
+
     selected_items = Item.get_items_time_range(st, ed);
     sumdic = Item.summary_item(selected_items);
     return render_template("index.html", all_items=selected_items, sumItem=sumdic);
-    # response = make_response(redirect(url_for('index')));, saves=saves, date=Lib.get_cur
-    # response.set_cookie('character', json.dumps(data));
-    # return response;
+
 
 @app.route('/search_by_keyword', methods=['POST'])
 def search_by_keyword():
@@ -58,7 +61,7 @@ def recover():
         Item.copy_a_deleted_item(x);
         x.delete_instance();
     Item.update_all_items();
-    response = make_response(redirect(url_for('index')));
+    response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
@@ -85,7 +88,7 @@ def save_new_item():
          otherProfit=Lib.toFloat(data['otherProfit']),\
           buyer=data['buyer'], buyPlace=data['buyPlace'],\
         payCards=data['payCards']);
-    response = make_response(redirect(url_for('index')));
+    response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
@@ -94,7 +97,7 @@ def delete_item():
     data = {};
     data.update(dict(request.form.items()));
     Item.delete_item_by_ID(Lib.toInt(data['delete']));
-    response = make_response(redirect(url_for('index')));
+    response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
 
@@ -145,6 +148,6 @@ def save_revise_item():
             x.payCards = data['payCards'];
             Item.update_cost_and_profit(x);
             x.save();
-    response = make_response(redirect(url_for('index')));
+    response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
