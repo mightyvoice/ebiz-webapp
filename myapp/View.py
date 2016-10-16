@@ -82,12 +82,12 @@ def save_new_item():
     data = {};
     data.update(dict(request.form.items()));
     Item.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
-        buySingleCost=Lib.toFloat(data['buySingleCost']),\
-        sellSignlePrice=Lib.toFloat(data['sellSignlePrice']),\
-         otherCost=Lib.toFloat(data['otherCost']),\
-         otherProfit=Lib.toFloat(data['otherProfit']),\
-          buyer=data['buyer'], buyPlace=data['buyPlace'],\
-        payCards=data['payCards']);
+                      buySingleCost=Lib.toFloat(data['buySingleCost']), \
+                      sellSignlePrice=Lib.toFloat(data['sellSignlePrice']), \
+                      otherCost=Lib.toFloat(data['otherCost']), \
+                      otherProfit=Lib.toFloat(data['otherProfit']), \
+                      buyer=data['buyer'], buyPlace=data['buyPlace'], \
+                      payCards=data['payCards']);
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;

@@ -60,17 +60,17 @@ def update_cost_and_profit(_item):
     _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
 def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
-                buySingleCost=0, buyTotalCost=0, \
-                receivedNum=0, sellSignlePrice=0, sellTotalPrice=0, receivedMoney=0, \
-                otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",\
+                 buySingleCost=0, buyTotalCost=0, \
+                 receivedNum=0, sellSignlePrice=0, sellTotalPrice=0, receivedMoney=0, \
+                 otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="", \
                  buyPlace="", payCards="", ifDrop=False):
-    new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost),\
-        buyTotalCost = Lib.toDecimal(buyTotalCost), \
-        sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice,\
-        receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost),\
-        basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit),\
-        totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards,\
-        ifDrop=ifDrop);
+    new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
+                    buyTotalCost = Lib.toDecimal(buyTotalCost), \
+                    sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice, \
+                    receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost), \
+                    basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit), \
+                    totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards, \
+                    ifDrop=ifDrop);
 
     if new_item.uID == 0:
     	new_item.uID = Lib.get_unique_ID();
@@ -117,20 +117,20 @@ def add_deleted_item(_id):
 
 def copy_a_deleted_item(_deletedItem):
 	'''return a Item the same as the _deletedItem'''
-	add_new_item(uID=_deletedItem.uID,\
-                date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name,\
-                buySingleCost=_deletedItem.buySingleCost,\
-                receivedNum=_deletedItem.receivedNum,\
-                sellSignlePrice=_deletedItem.sellSignlePrice,\
-                receivedMoney=_deletedItem.receivedMoney,\
-                otherCost=_deletedItem.otherCost,\
-                basicProfit=_deletedItem.basicProfit,\
-                otherProfit=_deletedItem.otherProfit,\
-                totalProfit=_deletedItem.totalProfit,\
-                buyer=_deletedItem.buyer,\
-                buyPlace=_deletedItem.buyPlace,\
-                payCards=_deletedItem.payCards,\
-                ifDrop=_deletedItem.ifDrop);
+	add_new_item(uID=_deletedItem.uID, \
+                 date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name, \
+                 buySingleCost=_deletedItem.buySingleCost, \
+                 receivedNum=_deletedItem.receivedNum, \
+                 sellSignlePrice=_deletedItem.sellSignlePrice, \
+                 receivedMoney=_deletedItem.receivedMoney, \
+                 otherCost=_deletedItem.otherCost, \
+                 basicProfit=_deletedItem.basicProfit, \
+                 otherProfit=_deletedItem.otherProfit, \
+                 totalProfit=_deletedItem.totalProfit, \
+                 buyer=_deletedItem.buyer, \
+                 buyPlace=_deletedItem.buyPlace, \
+                 payCards=_deletedItem.payCards, \
+                 ifDrop=_deletedItem.ifDrop);
 
 # -------------------------
 #     items summary row

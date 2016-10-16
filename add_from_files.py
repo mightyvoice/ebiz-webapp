@@ -56,7 +56,7 @@ def process_file(file_name):
         payCards = table.row_values(i)[16]
         ifDrop = get_true_false(table.row_values(i)[15])
         add_new_item(uID=0, date=date, name=name, number=number, buySingleCost=buySingleCost, \
-                     receivedNum=receivedNum, sellSignlePrice=sellSignlePrice, receivedMoney=receivedMoney, \
+                     receivedNum=receivedNum, sellSinglePrice=sellSignlePrice, receivedMoney=receivedMoney, \
                      otherCost=otherCost, basicProfit=basicProfit, otherProfit=otherProfit, buyer=buyer, \
                      buyPlace=buyPlace, payCards=payCards, ifDrop=ifDrop)
 
