@@ -44,7 +44,7 @@ def process_file(file_name):
 
         buySingleCost = Lib.toFloat(table.row_values(i)[3])
         receivedNum = Lib.toInt(table.row_values(i)[5])
-        sellSignlePrice = Lib.toInt(table.row_values(i)[6])
+        sellSinglePrice = Lib.toInt(table.row_values(i)[6])
         receivedMoney = Lib.toInt(table.row_values(i)[8])
         otherCost = Lib.toFloat(table.row_values(i)[9])
         basicProfit = Lib.toFloat(table.row_values(i)[10])
@@ -56,14 +56,17 @@ def process_file(file_name):
         payCards = table.row_values(i)[16]
         ifDrop = get_true_false(table.row_values(i)[15])
         add_new_item(uID=0, date=date, name=name, number=number, buySingleCost=buySingleCost, \
-                     receivedNum=receivedNum, sellSinglePrice=sellSignlePrice, receivedMoney=receivedMoney, \
+                     receivedNum=receivedNum, sellSinglePrice=sellSinglePrice, receivedMoney=receivedMoney, \
                      otherCost=otherCost, basicProfit=basicProfit, otherProfit=otherProfit, buyer=buyer, \
                      buyPlace=buyPlace, payCards=payCards, ifDrop=ifDrop)
 
 
 def process_all_files():
+    os.chdir("/Users/JuanChen/Desktop/Files")
     info = os.getcwd();
+    print info
     listfile = os.listdir(info);
+    print listfile
     for i in range(len(listfile)):
         if listfile[i][-4:] == 'xlsx':
             process_file(listfile[i]);

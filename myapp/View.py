@@ -83,7 +83,7 @@ def save_new_item():
     data.update(dict(request.form.items()));
     Item.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
                       buySingleCost=Lib.toFloat(data['buySingleCost']), \
-                      sellSignlePrice=Lib.toFloat(data['sellSignlePrice']), \
+                      sellSinglePrice=Lib.toFloat(data['sellSinglePrice']), \
                       otherCost=Lib.toFloat(data['otherCost']), \
                       otherProfit=Lib.toFloat(data['otherProfit']), \
                       buyer=data['buyer'], buyPlace=data['buyPlace'], \
@@ -138,7 +138,7 @@ def save_revise_item():
             x.number = Lib.toInt(data['num']);
             x.buySingleCost = Lib.toDecimal(Lib.toFloat(data['buySingleCost']));
             x.receivedNum = Lib.toInt(data['receivedNum']);
-            x.sellSignlePrice = Lib.toDecimal(Lib.toFloat(data['sellSignlePrice']));
+            x.sellSinglePrice = Lib.toDecimal(Lib.toFloat(data['sellSinglePrice']));
             x.receivedMoney = Lib.toDecimal(Lib.toFloat(data['receivedMoney']));
             x.otherCost = Lib.toDecimal(Lib.toFloat(data['otherCost']));
             x.otherProfit = Lib.toDecimal(Lib.toFloat(data['otherProfit']));

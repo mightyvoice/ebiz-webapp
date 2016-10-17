@@ -13,7 +13,7 @@ class DeletedItem(Model):
     buySingleCost = DoubleField();
     buyTotalCost = DoubleField();
     receivedNum = IntegerField();
-    sellSignlePrice = DoubleField();
+    sellSinglePrice = DoubleField();
     sellTotalPrice = DoubleField();
     receivedMoney = DoubleField();
     otherCost = DoubleField();

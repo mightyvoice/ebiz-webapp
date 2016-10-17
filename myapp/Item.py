@@ -15,7 +15,7 @@ class Item(Model):
     buySingleCost = DoubleField();
     buyTotalCost = DoubleField();
     receivedNum = IntegerField();
-    sellSignlePrice = DoubleField();
+    sellSinglePrice = DoubleField();
     sellTotalPrice = DoubleField();
     receivedMoney = DoubleField();
     otherCost = DoubleField();
@@ -26,6 +26,7 @@ class Item(Model):
     buyPlace = CharField(max_length=120);
     payCards = TextField();
     ifDrop = BooleanField();
+    # remark = TextField();
 
     class Meta:
         database = db;
@@ -40,7 +41,7 @@ class Item(Model):
         info['buySingleCost'] = self.buySingleCost
         info['buyTotalCost'] = self.buyTotalCost
         info['receivedNum'] = self.receivedNum
-        info['sellSignlePrice'] = self.sellSignlePrice
+        info['sellSinglePrice'] = self.sellSinglePrice
         info['sellTotalPrice'] = self.sellTotalPrice
         info['receivedMoney'] = self.receivedMoney
         info['otherCost'] = self.otherCost
@@ -55,18 +56,18 @@ def update_all_items():
 
 def update_cost_and_profit(_item):
     _item.buyTotalCost = Lib.toDecimal(_item.buySingleCost * _item.number);
-    _item.sellTotalPrice = Lib.toDecimal(_item.sellSignlePrice * _item.number);
+    _item.sellTotalPrice = Lib.toDecimal(_item.sellSinglePrice * _item.number);
     _item.basicProfit = Lib.toDecimal(_item.sellTotalPrice - _item.buyTotalCost);
     _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
 def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
                  buySingleCost=0, buyTotalCost=0, \
-                 receivedNum=0, sellSignlePrice=0, sellTotalPrice=0, receivedMoney=0, \
+                 receivedNum=0, sellSinglePrice=0, sellTotalPrice=0, receivedMoney=0, \
                  otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="", \
                  buyPlace="", payCards="", ifDrop=False):
     new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
                     buyTotalCost = Lib.toDecimal(buyTotalCost), \
-                    sellSignlePrice=Lib.toDecimal(sellSignlePrice), sellTotalPrice=sellTotalPrice, \
+                    sellSinglePrice=Lib.toDecimal(sellSinglePrice), sellTotalPrice=sellTotalPrice, \
                     receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost), \
                     basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit), \
                     totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards, \
@@ -105,13 +106,13 @@ def delete_all_saved_items():
 def add_deleted_item(_id):
     deleted_items = Item.select().where(Item.uID == _id);
     for newitem in deleted_items:
-        new_deleted_item = DeletedItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name,\
-            number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost,\
-            sellSignlePrice=newitem.sellSignlePrice, sellTotalPrice=newitem.sellTotalPrice,\
-            receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost,\
-            basicProfit=newitem.basicProfit, otherProfit=newitem.otherProfit,\
-            totalProfit=newitem.totalProfit, buyer=newitem.buyer, buyPlace=newitem.buyPlace, payCards=newitem.payCards,\
-            ifDrop=newitem.ifDrop);
+        new_deleted_item = DeletedItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name, \
+                                                   number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost, \
+                                                   sellSinglePrice=newitem.sellSinglePrice, sellTotalPrice=newitem.sellTotalPrice, \
+                                                   receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost, \
+                                                   basicProfit=newitem.basicProfit, otherProfit=newitem.otherProfit, \
+                                                   totalProfit=newitem.totalProfit, buyer=newitem.buyer, buyPlace=newitem.buyPlace, payCards=newitem.payCards, \
+                                                   ifDrop=newitem.ifDrop);
         update_cost_and_profit(new_deleted_item);
         new_deleted_item.save();
 
@@ -121,7 +122,7 @@ def copy_a_deleted_item(_deletedItem):
                  date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name, \
                  buySingleCost=_deletedItem.buySingleCost, \
                  receivedNum=_deletedItem.receivedNum, \
-                 sellSignlePrice=_deletedItem.sellSignlePrice, \
+                 sellSinglePrice=_deletedItem.sellSinglePrice, \
                  receivedMoney=_deletedItem.receivedMoney, \
                  otherCost=_deletedItem.otherCost, \
                  basicProfit=_deletedItem.basicProfit, \
