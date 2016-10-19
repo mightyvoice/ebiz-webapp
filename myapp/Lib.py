@@ -51,11 +51,11 @@ def toBoolean(x):
     return False
 
 def get_cur_time_stamp():
-    x = toInt(math.ceil(time.time() * 100));
-    left = str(x)[-5:];
-    right = str(get_random_number());
-    res = toInt(left + right);
-    return res;
+    x = toInt(math.ceil(time.time() * 100))
+    left = str(x)[-5:]
+    right = str(get_random_number())
+    res = toInt(left + right)
+    return res
 
 def get_random_number():
     return random.randint(10000, 99999);

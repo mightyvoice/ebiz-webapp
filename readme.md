@@ -39,9 +39,9 @@
 	1. buyPlace 
 	1. payCards=
 	1. ifDrop 
-	2. Address(need to add)
-	3. register(need to add)
-	4. 
+	2. itemLocation(need to add)
+	3. ifRegister(need to add)
+	4. remark
 * Card
 	1. bankName
 	2. cardName

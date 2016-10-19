@@ -22,7 +22,7 @@ itemLocation_field = TextField(null=True)
 ifRegister_field = BooleanField(default=False, null=True)
 remark_field = TextField(null=True)
 
-# Run the migration, specifying the database table, field name and field.
+# Run ahe migration, specifying the database table, field name and field.
 # migrate(
     # migrator.add_column('PurchasedItem', 'user', user_field),
     # migrator.add_column('PurchasedItem', 'itemLocation', itemLocation_field),
