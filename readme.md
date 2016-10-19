@@ -22,6 +22,7 @@
 * PurchasedItem
 * DeletedItem
 	1. uID
+	2. user(foreign key)
 	2. date
 	1. number
 	1. name
@@ -50,7 +51,6 @@
 	3. creditLimit
 	5. currentBalance
 	6. remainingBalance
-* Buyer
 * User(next step)
 	1. username-unique
 	2. email-
