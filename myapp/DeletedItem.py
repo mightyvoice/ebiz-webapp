@@ -24,9 +24,13 @@ class DeletedItem(Model):
     buyPlace = CharField(max_length=120);
     payCards = TextField();
     ifDrop = BooleanField();
+    itemLocation = TextField()
+    ifRegister = BooleanField();
+    remark = TextField();
 
     class Meta:
-        database = db;
+        database = db
+
 
 def delete_all_deleted_items():
     for x in DeletedItem.select():

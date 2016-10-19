@@ -52,6 +52,9 @@
 	6. remainingBalance
 * Buyer
 * User(next step)
+	1. username-unique
+	2. email-
+	3. password
 
 
 

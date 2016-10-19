@@ -1,6 +1,6 @@
 import xlrd
 
-from myapp.Item import *
+from myapp.PurchasedItem import *
 import datetime
 import Lib
 import os

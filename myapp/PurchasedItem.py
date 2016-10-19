@@ -3,12 +3,14 @@ from peewee import *
 import Lib
 from MyDatabase import *
 import DeletedItem
+# import User
 
 all_items = [];
 item_list = [];
 
-class Item(Model):
+class PurchasedItem(Model):
     uID = IntegerField(unique=True);
+    # user = ForeignKeyField(User, related_name="purchasedItems")
     date = DateField();
     number = IntegerField();
     name = TextField();
@@ -26,7 +28,9 @@ class Item(Model):
     buyPlace = CharField(max_length=120);
     payCards = TextField();
     ifDrop = BooleanField();
-    # remark = TextField();
+    itemLocation = TextField()
+    ifRegister = BooleanField();
+    remark = TextField();
 
     class Meta:
         database = db;
@@ -51,7 +55,7 @@ class Item(Model):
 
 def update_all_items():
     global all_items;
-    all_items = Item.select();
+    all_items = PurchasedItem.select();
     DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
 def update_cost_and_profit(_item):
@@ -60,18 +64,18 @@ def update_cost_and_profit(_item):
     _item.basicProfit = Lib.toDecimal(_item.sellTotalPrice - _item.buyTotalCost);
     _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
-def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
-                 buySingleCost=0, buyTotalCost=0, \
-                 receivedNum=0, sellSinglePrice=0, sellTotalPrice=0, receivedMoney=0, \
-                 otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="", \
-                 buyPlace="", payCards="", ifDrop=False):
-    new_item = Item(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
-                    buyTotalCost = Lib.toDecimal(buyTotalCost), \
-                    sellSinglePrice=Lib.toDecimal(sellSinglePrice), sellTotalPrice=sellTotalPrice, \
-                    receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost), \
-                    basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit), \
-                    totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards, \
-                    ifDrop=ifDrop);
+def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0,
+                 buySingleCost=0, buyTotalCost=0,
+                 receivedNum=0, sellSinglePrice=0, sellTotalPrice=0, receivedMoney=0,
+                 otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",
+                 buyPlace="", payCards="", ifDrop=False, itemLocation="", ifRegister=False, remark=""):
+    new_item = PurchasedItem(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
+                             buyTotalCost = Lib.toDecimal(buyTotalCost), \
+                             sellSinglePrice=Lib.toDecimal(sellSinglePrice), sellTotalPrice=sellTotalPrice, \
+                             receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost), \
+                             basicProfit=Lib.toDecimal(basicProfit), otherProfit=Lib.toDecimal(otherProfit), \
+                             totalProfit=Lib.toDecimal(totalProfit), buyer=buyer, buyPlace=buyPlace, payCards=payCards, \
+                             ifDrop=ifDrop, itemLocation=itemLocation, ifRegister=ifRegister, remark=remark);
 
     if new_item.uID == 0:
     	new_item.uID = Lib.get_unique_ID();
@@ -81,30 +85,30 @@ def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0, \
 
 def get_items_time_range(_start=datetime.date(1,1,1), _end=Lib.get_current_date()):
 # def get_items_time_range(_start=Lib.get_current_date(), _end=Lib.get_current_date()):
-    entries = Item.select().order_by(Item.date);
-    ans = entries.where(Item.date >= _start);
-    ans = ans.where(Item.date <= _end);
+    entries = PurchasedItem.select().order_by(PurchasedItem.date);
+    ans = entries.where(PurchasedItem.date >= _start);
+    ans = ans.where(PurchasedItem.date <= _end);
     return ans;
 
 
 def get_item_by_ID(_ID):
-    for x in Item.select():
+    for x in PurchasedItem.select():
         if x.uID == _ID:
             return x;
 
 def delete_item_by_ID(_id):
-    entries = Item.select().where(Item.uID == _id);
+    entries = PurchasedItem.select().where(PurchasedItem.uID == _id);
     for entry in entries:
         add_deleted_item(entry.uID);
         entry.delete_instance();
     update_all_items();
 
 def delete_all_saved_items():
-    for x in Item.select():
+    for x in PurchasedItem.select():
         x.delete_instance();
 
 def add_deleted_item(_id):
-    deleted_items = Item.select().where(Item.uID == _id);
+    deleted_items = PurchasedItem.select().where(PurchasedItem.uID == _id);
     for newitem in deleted_items:
         new_deleted_item = DeletedItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name, \
                                                    number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost, \
@@ -112,12 +116,12 @@ def add_deleted_item(_id):
                                                    receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost, \
                                                    basicProfit=newitem.basicProfit, otherProfit=newitem.otherProfit, \
                                                    totalProfit=newitem.totalProfit, buyer=newitem.buyer, buyPlace=newitem.buyPlace, payCards=newitem.payCards, \
-                                                   ifDrop=newitem.ifDrop);
+                                                   ifDrop=newitem.ifDrop,itemLocation=newitem.itemLocation, ifRegister=newitem.ifRegister, remark=newitem.remark);
         update_cost_and_profit(new_deleted_item);
         new_deleted_item.save();
 
 def copy_a_deleted_item(_deletedItem):
-	'''return a Item the same as the _deletedItem'''
+	'''return a PurchasedItem the same as the _deletedItem'''
 	add_new_item(uID=_deletedItem.uID, \
                  date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name, \
                  buySingleCost=_deletedItem.buySingleCost, \
@@ -131,7 +135,10 @@ def copy_a_deleted_item(_deletedItem):
                  buyer=_deletedItem.buyer, \
                  buyPlace=_deletedItem.buyPlace, \
                  payCards=_deletedItem.payCards, \
-                 ifDrop=_deletedItem.ifDrop);
+                 ifDrop=_deletedItem.ifDrop,
+                 itemLocation=_deletedItem.itemLocation, \
+                 ifRegister=_deletedItem.ifRegister, \
+                 remark=_deletedItem.remark);
 
 # -------------------------
 #     items summary row

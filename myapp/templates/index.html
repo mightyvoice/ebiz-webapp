@@ -32,7 +32,7 @@
 		<div id="show_items">
 			<div id="add_item">
 				<form action="{{ url_for('add_item') }}">
-					<input class="add_button" type='submit' value='Add a New Item'>
+					<input class="add_button" type='submit' value='Add a New PurchasedItem'>
 				</form>
 			</div>
 			<div>
@@ -53,12 +53,15 @@
 					<th>received Money</th>
 					<th>other Cost</th>
 					<th>basic Profit</th>
-					<th>other Profit</th>
-					<th>total Profit</th>
-					<th>buyer</th>
-					<th>buyPlace</th>
-					<th>payCards</th>
+					<th>Other Profit</th>
+					<th>Total Profit</th>
+					<th>Buyer</th>
+					<th>BuyPlace</th>
+					<th>PayCards</th>
 					<th>ifDrop</th>
+                    <th>ItemLocation</th>
+                    <th>ifRegister</th>
+                    <th>Remark</th>
 				</tr>
 				{% for x in all_items %}
 				<tr>
@@ -87,6 +90,9 @@
 					<td>{{ x.buyPlace }}</td>
 					<td>{{ x.payCards }}</td>
 					<td>{{ x.ifDrop }}</td>
+                    <td>{{ x.itemLocation }}</td>
+                    <td>{{ x.ifRegister }}</td>
+                    <td>{{ x.remark }}</td>
 				</tr>
 				{% endfor %}
 				<!-- <-summary item-> -->
@@ -106,7 +112,7 @@
                     <td>{{ sumItem['sumBasicProfit'] }}</td>
                     <td>{{ sumItem['sumOtherProfit'] }}</td>
                     <td>{{ sumItem['sumTotalProfit'] }}</td>
-                    <td> </td><td> </td><td> </td><td> </td>
+                    <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td>
 				</tr>
 			</table>
 			</div>

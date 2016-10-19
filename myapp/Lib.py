@@ -41,6 +41,15 @@ def toStr(x):
 	except:
 		return ''
 
+def toBoolean(x):
+    if isinstance(x, basestring):
+        newx = x.lower()
+        if newx[0] == 't' or newx[0] == 'y':
+            return True
+        elif newx[0] == 'f' or newx[0] == 'n':
+            return False
+    return False
+
 def get_cur_time_stamp():
     x = toInt(math.ceil(time.time() * 100));
     left = str(x)[-5:];

@@ -11,7 +11,7 @@
 		<form action="{{ url_for('home') }}">
 			<input class="retrn_to_home" type="submit" value="Return to Main Page">
 		</form>
-		<h2>Revise an Item</h2>
+		<h2>Revise an PurchasedItem</h2>
 		<form action="{{ url_for('save_revise_item') }}" method="POST"
 		class="save_revise_item">
 			<div >
@@ -30,6 +30,9 @@
 				<label>If Drop: </label><input name="ifDrop" value="{{ item.ifDrop }}"><br>
 				<label>Buy Place: </label><input name="buyPlace" value="{{ item.buyPlace }}"><br>
 				<label>Pay Cards: </label><input name="payCards" value="{{ item.payCards }}"><br>
+                <label>Item Location: </label><input name="itemLocation" value="{{ item.itemLocation }}"><br>
+                <label>ifRegister: </label><input name="ifRegister" value="{{ item.ifRegister }}"><br>
+                <label>Remark: </label><input name="remark" value="{{ item.remark }}"><br>
 			</div>
 			<input id="revise_submit" type="submit" class="submit_button" value="Submit">
 		</form>

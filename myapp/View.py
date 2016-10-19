@@ -11,8 +11,8 @@ init_all_tables()
 
 @app.route('/', methods=['GET'])
 def home():
-    all_items = Item.all_items;
-    sumItem = Item.summary_item(all_items);
+    all_items = PurchasedItem.all_items;
+    sumItem = PurchasedItem.summary_item(all_items);
     return render_template("index.html",
                            date=Lib.get_current_date(),
                            all_items=all_items,
@@ -29,8 +29,8 @@ def selected_items(saves=""):
     st = data['start_date']
     ed = data['end_date']
 
-    selected_items = Item.get_items_time_range(st, ed);
-    sumdic = Item.summary_item(selected_items);
+    selected_items = PurchasedItem.get_items_time_range(st, ed);
+    sumdic = PurchasedItem.summary_item(selected_items);
     return render_template("index.html", all_items=selected_items, sumItem=sumdic);
 
 
@@ -41,11 +41,11 @@ def search_by_keyword():
     for x in data.items():
         print(x);
     keyword = data['keyword'].strip().lower();
-    all_items = Item.Item.select();
-    sumdic = Item.summary_item(all_items);
+    all_items = PurchasedItem.PurchasedItem.select();
+    sumdic = PurchasedItem.summary_item(all_items);
     if (keyword != ""):
-        all_items = Item.get_items_by_keyword(keyword);
-        sumdic = Item.summary_item(all_items);
+        all_items = PurchasedItem.get_items_by_keyword(keyword);
+        sumdic = PurchasedItem.summary_item(all_items);
     return render_template("index.html", all_items=all_items, sumItem=sumdic);
 
 
@@ -58,9 +58,9 @@ def recover():
     uID = Lib.toInt(data['uID']);
     tmp = DeletedItem.DeletedItem.select().where(DeletedItem.DeletedItem.uID == uID);
     for x in tmp:
-        Item.copy_a_deleted_item(x);
+        PurchasedItem.copy_a_deleted_item(x);
         x.delete_instance();
-    Item.update_all_items();
+    PurchasedItem.update_all_items();
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
@@ -68,7 +68,7 @@ def recover():
 
 @app.route('/add_item')
 def add_item():
-    return render_template("add_item.html", all_items=Item.all_items);
+    return render_template("add_item.html", all_items=PurchasedItem.all_items);
 
 def get_saved_data():
     try:
@@ -81,13 +81,14 @@ def get_saved_data():
 def save_new_item():
     data = {};
     data.update(dict(request.form.items()));
-    Item.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
-                      buySingleCost=Lib.toFloat(data['buySingleCost']), \
-                      sellSinglePrice=Lib.toFloat(data['sellSinglePrice']), \
-                      otherCost=Lib.toFloat(data['otherCost']), \
-                      otherProfit=Lib.toFloat(data['otherProfit']), \
-                      buyer=data['buyer'], buyPlace=data['buyPlace'], \
-                      payCards=data['payCards']);
+    PurchasedItem.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
+                               buySingleCost=Lib.toFloat(data['buySingleCost']), \
+                               sellSinglePrice=Lib.toFloat(data['sellSinglePrice']), \
+                               otherCost=Lib.toFloat(data['otherCost']), \
+                               otherProfit=Lib.toFloat(data['otherProfit']), \
+                               buyer=data['buyer'], buyPlace=data['buyPlace'], \
+                               payCards=data['payCards'], itemLocation=data['itemLocation'],
+                               ifRegister=Lib.toBoolean(data['ifRegister']), remark=data['remark']);
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
@@ -96,7 +97,7 @@ def save_new_item():
 def delete_item():
     data = {};
     data.update(dict(request.form.items()));
-    Item.delete_item_by_ID(Lib.toInt(data['delete']));
+    PurchasedItem.delete_item_by_ID(Lib.toInt(data['delete']));
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
@@ -121,7 +122,7 @@ def jump_revise_item():
 @app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
 def revise_item(uID):
-    item = Item.get_item_by_ID(uID);
+    item = PurchasedItem.get_item_by_ID(uID);
     ######################################testing#######
     # item.print_item()
     return render_template("revise_item.html", item=item);
@@ -131,7 +132,7 @@ def save_revise_item():
     data = {};
     data.update(dict(request.form.items()));
     uID = Lib.toInt(data['uID']);
-    for x in Item.all_items:
+    for x in PurchasedItem.all_items:
         if x.uID == uID:
             x.name = data['name'];
             x.date = Lib.str_to_date(data['date']);
@@ -146,7 +147,10 @@ def save_revise_item():
             x.ifDrop = data['ifDrop'];
             x.buyPlace = data['buyPlace'];
             x.payCards = data['payCards'];
-            Item.update_cost_and_profit(x);
+            x.itemLocation = data['itemLocation'];
+            x.ifRegister = Lib.toBoolean(data['ifRegister']);
+            x.remark = data['remark'];
+            PurchasedItem.update_cost_and_profit(x);
             x.save();
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
