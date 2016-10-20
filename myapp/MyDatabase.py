@@ -50,3 +50,8 @@ from User import *
 # )
 
 
+import flask_login
+from myapp import app
+
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)

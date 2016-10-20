@@ -1,13 +1,40 @@
 from myapp import app
 import datetime
 from peewee import *
-from flask import (Flask, render_template, redirect,
+from flask import (request, render_template, redirect,
     url_for, request,  make_response, flash)
 import json
 import Lib
 from Tables import *
+from User import *
 
 init_all_tables()
+
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    emailOrName = request.form.get('emailOrName', '')
+    currentUser = User.get(User.username==emailOrName or User.email == emailOrNamel)
+    if currentUser != "":
+        print currentUser
+        if request.form['password'] == currentUser.password:
+            user = User()
+            user.id = emailOrName
+            flask_login.login_user(user);
+            return redirect(url_for('protected'))
+        return 'Bad Login'
+    return 'User not exists'
+
+
+@app.route('/protected')
+@flask_login.login_required
+def protected():
+    return 'Logged in as: ' + str(flask_login.current_user.username)
+    # return redirect(url_for('home'))
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -49,7 +76,6 @@ def search_by_keyword():
     return render_template("index.html", all_items=all_items, sumItem=sumdic);
 
 
-
 @app.route('/recover', methods=['POST'])
 def recover():
     data = {};
@@ -70,12 +96,14 @@ def recover():
 def add_item():
     return render_template("add_item.html")
 
+
 def get_saved_data():
     try:
         data = json.loads(request.cookies.get('character'));
     except TypeError:
         data = {};
     return data;
+
 
 @app.route('/save_new_item', methods=['POST'])
 def save_new_item():
@@ -92,6 +120,7 @@ def save_new_item():
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
+
 
 @app.route('/delete_item', methods=['POST'])
 def delete_item():
@@ -110,7 +139,6 @@ def show_deleted_item():
     return render_template("deletedItems.html", all_items=deleted_items);
 
 
-
 @app.route('/jump_revise_item', methods=['POST'])
 def jump_revise_item():
     data = {};
@@ -119,6 +147,7 @@ def jump_revise_item():
     # response.set_cookie('character', json.dumps(data));
     return response;
 
+
 @app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
 def revise_item(uID):
@@ -126,6 +155,7 @@ def revise_item(uID):
     ######################################testing#######
     # item.print_item()
     return render_template("revise_item.html", item=item);
+
 
 @app.route('/save_revise_item', methods=['POST'])
 def save_revise_item():

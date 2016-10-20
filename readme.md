@@ -4,6 +4,7 @@
 * peewee(ORM)
 * Flask
 * Sqlite
+* Flask-Login
 
 ## Main Function
 * user log in & log out
