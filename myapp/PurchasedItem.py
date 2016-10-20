@@ -3,14 +3,13 @@ from peewee import *
 import Lib
 from MyDatabase import *
 import DeletedItem
-# import User
+from User import *
 
 all_items = [];
 item_list = [];
 
 class PurchasedItem(Model):
     uID = IntegerField(unique=True);
-    # user = ForeignKeyField(User, related_name="purchasedItems")
     date = DateField();
     number = IntegerField();
     name = TextField();
@@ -31,6 +30,7 @@ class PurchasedItem(Model):
     itemLocation = TextField()
     ifRegister = BooleanField();
     remark = TextField();
+    user = ForeignKeyField(User, related_name="purchasedItems", null=False)
 
     class Meta:
         database = db;
@@ -135,7 +135,7 @@ def copy_a_deleted_item(_deletedItem):
                  buyer=_deletedItem.buyer, \
                  buyPlace=_deletedItem.buyPlace, \
                  payCards=_deletedItem.payCards, \
-                 ifDrop=_deletedItem.ifDrop,
+                 ifDrop=_Item.ifDrop,
                  itemLocation=_deletedItem.itemLocation, \
                  ifRegister=_deletedItem.ifRegister, \
                  remark=_deletedItem.remark);

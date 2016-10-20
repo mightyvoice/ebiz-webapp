@@ -42,6 +42,8 @@ def toStr(x):
 		return ''
 
 def toBoolean(x):
+    if x == "" :
+        return False
     if isinstance(x, basestring):
         newx = x.lower()
         if newx[0] == 't' or newx[0] == 'y':

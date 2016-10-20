@@ -1,6 +1,8 @@
 import datetime
 from peewee import *
 import Lib
+
+from User import User
 from MyDatabase import *
 
 all_deleted_items = [];
@@ -27,6 +29,7 @@ class DeletedItem(Model):
     itemLocation = TextField()
     ifRegister = BooleanField();
     remark = TextField();
+    user = ForeignKeyField(User, related_name="deletedItems", null=False)
 
     class Meta:
         database = db

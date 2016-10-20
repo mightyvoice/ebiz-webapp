@@ -68,7 +68,7 @@ def recover():
 
 @app.route('/add_item')
 def add_item():
-    return render_template("add_item.html", all_items=PurchasedItem.all_items);
+    return render_template("add_item.html")
 
 def get_saved_data():
     try:
