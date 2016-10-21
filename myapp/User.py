@@ -21,7 +21,7 @@ class User(Model, flask_login.UserMixin):
 @login_manager.user_loader
 def user_loader(email):
     print "------user_loader active-------"
-    currentUser = User.get(User.username==email or User.email == email)
+    currentUser = User.get(User.email == email)
     return currentUser
 
 def addNewUser(username="", email="", password=""):

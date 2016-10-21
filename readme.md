@@ -18,6 +18,8 @@
 	3. time span
 	4. PaidCard
 	5. ReceivedMoney
+* show unpaid amount by buyer and time span(next step)
+* 
 
 ### Models
 * PurchasedItem
@@ -58,4 +60,7 @@
 	3. password
 
 
-
+##TODO LIST
+**READING**: FLASK AND PEEWEE DATABASE MANAGEMENT  
+* [FLASKR](http://flask.pocoo.org/docs/0.11/tutorial/introduction/)  
+* [PEEWEE DATABASE MANAGE](http://docs.peewee-orm.com/en/latest/peewee/database.html#advanced-connection-management)

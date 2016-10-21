@@ -14,29 +14,47 @@ init_all_tables()
 @app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'GET':
+        if flask_login.current_user.is_authenticated:
+            flash("Already Signed In")
+            return redirect(url_for('home'))
         return render_template('login.html')
 
-    emailOrName = request.form.get('emailOrName', '')
-    currentUser = User.get(User.username==emailOrName or User.email == emailOrNamel)
-    if currentUser != "":
-        print currentUser
+    email = request.form.get('email', '')
+    try:
+        currentUser = User.get(User.email == email)
         if request.form['password'] == currentUser.password:
             user = User()
-            user.id = emailOrName
+            user.id = email
             flask_login.login_user(user);
             return redirect(url_for('protected'))
-        return 'Bad Login'
-    return 'User not exists'
+        return "bad credencials"
+    except User.DoesNotExist:
+        return "User not Exists"
+
+
+# callback for login failures
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+	return render_template('unauthorized.html')
+
+
+@app.route('/logout', methods=['GET'])
+@flask_login.login_required
+def logout():
+    flask_login.logout_user();
+    return "You Have Been Successfully Logged Out"
 
 
 @app.route('/protected')
 @flask_login.login_required
 def protected():
-    return 'Logged in as: ' + str(flask_login.current_user.username)
-    # return redirect(url_for('home'))
+    refresh_all_tables()
+    # return 'Logged in as: ' + str(flask_login.current_user.username)
+    return redirect(url_for('home'))
 
 
 @app.route('/', methods=['GET'])
+@flask_login.login_required
 def home():
     all_items = PurchasedItem.all_items;
     sumItem = PurchasedItem.summary_item(all_items);
@@ -49,6 +67,7 @@ def home():
 
 
 @app.route('/', methods=['POST'])
+@flask_login.login_required
 def selected_items(saves=""):
     data = {};
     # data is <select> date range
@@ -62,6 +81,7 @@ def selected_items(saves=""):
 
 
 @app.route('/search_by_keyword', methods=['POST'])
+@flask_login.login_required
 def search_by_keyword():
     data = {};
     data.update(dict(request.form.items()));
@@ -77,6 +97,7 @@ def search_by_keyword():
 
 
 @app.route('/recover', methods=['POST'])
+@flask_login.login_required
 def recover():
     data = {};
     data.update(dict(request.form.items()));
@@ -93,6 +114,7 @@ def recover():
 
 
 @app.route('/add_item')
+@flask_login.login_required
 def add_item():
     return render_template("add_item.html")
 
@@ -106,10 +128,12 @@ def get_saved_data():
 
 
 @app.route('/save_new_item', methods=['POST'])
+@flask_login.login_required
 def save_new_item():
+    curUser = flask_login.current_user.id
     data = {};
     data.update(dict(request.form.items()));
-    PurchasedItem.add_new_item(name=data['name'], number=Lib.toInt(data['num']), \
+    PurchasedItem.add_new_item(user=curUser, name=data['name'], number=Lib.toInt(data['num']), \
                                buySingleCost=Lib.toFloat(data['buySingleCost']), \
                                sellSinglePrice=Lib.toFloat(data['sellSinglePrice']), \
                                otherCost=Lib.toFloat(data['otherCost']), \
@@ -123,6 +147,7 @@ def save_new_item():
 
 
 @app.route('/delete_item', methods=['POST'])
+@flask_login.login_required
 def delete_item():
     data = {};
     data.update(dict(request.form.items()));
@@ -134,12 +159,14 @@ def delete_item():
 
 
 @app.route('/show_deleted_item')
+@flask_login.login_required
 def show_deleted_item():
     deleted_items = DeletedItem.all_deleted_items;
     return render_template("deletedItems.html", all_items=deleted_items);
 
 
 @app.route('/jump_revise_item', methods=['POST'])
+@flask_login.login_required
 def jump_revise_item():
     data = {};
     data.update(dict(request.form.items()));
@@ -150,6 +177,7 @@ def jump_revise_item():
 
 @app.route('/revise_item/<int:uID>')
 @app.route('/revise_item')
+@flask_login.login_required
 def revise_item(uID):
     item = PurchasedItem.get_item_by_ID(uID);
     ######################################testing#######
@@ -158,6 +186,7 @@ def revise_item(uID):
 
 
 @app.route('/save_revise_item', methods=['POST'])
+@flask_login.login_required
 def save_revise_item():
     data = {};
     data.update(dict(request.form.items()));

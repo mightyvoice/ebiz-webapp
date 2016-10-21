@@ -64,12 +64,12 @@ def update_cost_and_profit(_item):
     _item.basicProfit = Lib.toDecimal(_item.sellTotalPrice - _item.buyTotalCost);
     _item.totalProfit = Lib.toDecimal(_item.basicProfit + _item.otherProfit - _item.otherCost);
 
-def add_new_item(uID=0, date=Lib.get_current_date(), name="", number=0,
+def add_new_item(user, uID=0, date=Lib.get_current_date(), name="", number=0,
                  buySingleCost=0, buyTotalCost=0,
                  receivedNum=0, sellSinglePrice=0, sellTotalPrice=0, receivedMoney=0,
                  otherCost=0, basicProfit=0, otherProfit=0, totalProfit=0, buyer="",
                  buyPlace="", payCards="", ifDrop=False, itemLocation="", ifRegister=False, remark=""):
-    new_item = PurchasedItem(uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
+    new_item = PurchasedItem(user=user, uID=uID, date=date, name=name, number=number, buySingleCost=Lib.toDecimal(buySingleCost), \
                              buyTotalCost = Lib.toDecimal(buyTotalCost), \
                              sellSinglePrice=Lib.toDecimal(sellSinglePrice), sellTotalPrice=sellTotalPrice, \
                              receivedMoney=Lib.toDecimal(receivedMoney), receivedNum=receivedNum, otherCost=Lib.toDecimal(otherCost), \
@@ -110,7 +110,7 @@ def delete_all_saved_items():
 def add_deleted_item(_id):
     deleted_items = PurchasedItem.select().where(PurchasedItem.uID == _id);
     for newitem in deleted_items:
-        new_deleted_item = DeletedItem.DeletedItem(uID=newitem.uID, date=newitem.date, name=newitem.name, \
+        new_deleted_item = DeletedItem.DeletedItem(user=newitem.user, uID=newitem.uID, date=newitem.date, name=newitem.name, \
                                                    number=newitem.number, buySingleCost=newitem.buySingleCost, buyTotalCost=newitem.buyTotalCost, \
                                                    sellSinglePrice=newitem.sellSinglePrice, sellTotalPrice=newitem.sellTotalPrice, \
                                                    receivedMoney=newitem.receivedMoney, receivedNum=newitem.receivedNum, otherCost=newitem.otherCost, \
@@ -122,7 +122,7 @@ def add_deleted_item(_id):
 
 def copy_a_deleted_item(_deletedItem):
 	'''return a PurchasedItem the same as the _deletedItem'''
-	add_new_item(uID=_deletedItem.uID, \
+	add_new_item(user=_deletedItem.user, uID=_deletedItem.uID, \
                  date=_deletedItem.date, number=_deletedItem.number, name=_deletedItem.name, \
                  buySingleCost=_deletedItem.buySingleCost, \
                  receivedNum=_deletedItem.receivedNum, \
@@ -135,7 +135,7 @@ def copy_a_deleted_item(_deletedItem):
                  buyer=_deletedItem.buyer, \
                  buyPlace=_deletedItem.buyPlace, \
                  payCards=_deletedItem.payCards, \
-                 ifDrop=_Item.ifDrop,
+                 ifDrop=_deletedItem.ifDrop,
                  itemLocation=_deletedItem.itemLocation, \
                  ifRegister=_deletedItem.ifRegister, \
                  remark=_deletedItem.remark);

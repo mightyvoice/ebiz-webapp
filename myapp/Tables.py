@@ -22,13 +22,19 @@ def addDefaultUser():
 def init_all_tables():
     db.connect();
     db.create_tables([PurchasedItem.PurchasedItem, DeletedItem.DeletedItem, User.User], safe=True);
+    print "init tables"
     # drop_all_tables();
-    PurchasedItem.update_all_items();
-    print "Item表格共有行数：" + str(len(PurchasedItem.all_items));
     # addDefaultUser()
     # q = PurchasedItem.PurchasedItem.update(buyer="4k").where(PurchasedItem.PurchasedItem.buyer == "李旭");
     # q.execute();
+    # DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
 
-    DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
+    # PurchasedItem.update_all_items();
+    # print "PurchasedItem Table Rows: " + str(len(PurchasedItem.all_items))
+    # print "DeletedItem Table Rows: " + str(len(DeletedItem.all_deleted_items))
 
 
+def refresh_all_tables():
+    PurchasedItem.update_all_items();
+    print "PurchasedItem Table Rows: " + str(len(PurchasedItem.all_items))
+    print "DeletedItem Table Rows: " + str(len(DeletedItem.all_deleted_items))
