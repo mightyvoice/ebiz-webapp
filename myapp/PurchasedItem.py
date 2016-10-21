@@ -53,10 +53,11 @@ class PurchasedItem(Model):
         print(info.items())
 
 
-def update_all_items():
+def update_all_items(user_id):
     global all_items;
-    all_items = PurchasedItem.select();
-    DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select();
+    all_items = PurchasedItem.select().where(PurchasedItem.user == user_id);
+    DeletedItem.all_deleted_items = DeletedItem.DeletedItem.select().where(DeletedItem.DeletedItem.user == user_id)
+
 
 def update_cost_and_profit(_item):
     _item.buyTotalCost = Lib.toDecimal(_item.buySingleCost * _item.number);
@@ -81,13 +82,13 @@ def add_new_item(user, uID=0, date=Lib.get_current_date(), name="", number=0,
     	new_item.uID = Lib.get_unique_ID();
     update_cost_and_profit(new_item);
     new_item.save();
-    update_all_items();
+    update_all_items(user);
 
-def get_items_time_range(_start=datetime.date(1,1,1), _end=Lib.get_current_date()):
-# def get_items_time_range(_start=Lib.get_current_date(), _end=Lib.get_current_date()):
+def get_items_time_range(userid, _start=datetime.date(1,1,1), _end=Lib.get_current_date()):
     entries = PurchasedItem.select().order_by(PurchasedItem.date);
-    ans = entries.where(PurchasedItem.date >= _start);
-    ans = ans.where(PurchasedItem.date <= _end);
+    ans = entries.where(PurchasedItem.user == userid)
+    ans = ans.where(PurchasedItem.date >= _start)
+    ans = ans.where(PurchasedItem.date <= _end)
     return ans;
 
 
@@ -98,10 +99,11 @@ def get_item_by_ID(_ID):
 
 def delete_item_by_ID(_id):
     entries = PurchasedItem.select().where(PurchasedItem.uID == _id);
+    user_id = entries[0].user
     for entry in entries:
         add_deleted_item(entry.uID);
         entry.delete_instance();
-    update_all_items();
+    update_all_items(user_id);
 
 def delete_all_saved_items():
     for x in PurchasedItem.select():

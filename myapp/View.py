@@ -48,7 +48,8 @@ def logout():
 @app.route('/protected')
 @flask_login.login_required
 def protected():
-    refresh_all_tables()
+    current_user_id = flask_login.current_user.id
+    refresh_all_tables(current_user_id)
     # return 'Logged in as: ' + str(flask_login.current_user.username)
     return redirect(url_for('home'))
 
@@ -74,8 +75,8 @@ def selected_items(saves=""):
     data.update(dict(request.form.items()));
     st = data['start_date']
     ed = data['end_date']
-
-    selected_items = PurchasedItem.get_items_time_range(st, ed);
+    cur_user = flask_login.current_user.id
+    selected_items = PurchasedItem.get_items_time_range(cur_user, st, ed)
     sumdic = PurchasedItem.summary_item(selected_items);
     return render_template("index.html", all_items=selected_items, sumItem=sumdic);
 
@@ -83,12 +84,13 @@ def selected_items(saves=""):
 @app.route('/search_by_keyword', methods=['POST'])
 @flask_login.login_required
 def search_by_keyword():
+    cur_user = flask_login.current_user.id
     data = {};
     data.update(dict(request.form.items()));
     for x in data.items():
         print(x);
     keyword = data['keyword'].strip().lower();
-    all_items = PurchasedItem.PurchasedItem.select();
+    all_items = PurchasedItem.PurchasedItem.select().where(cur_user == PurchasedItem.PurchasedItem.user);
     sumdic = PurchasedItem.summary_item(all_items);
     if (keyword != ""):
         all_items = PurchasedItem.get_items_by_keyword(keyword);
@@ -107,7 +109,7 @@ def recover():
     for x in tmp:
         PurchasedItem.copy_a_deleted_item(x);
         x.delete_instance();
-    PurchasedItem.update_all_items();
+    PurchasedItem.update_all_items(flask_login.current_user.id);
     response = make_response(redirect(url_for('home')));
     # response.set_cookie('character', json.dumps(data));
     return response;
