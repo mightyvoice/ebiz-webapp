@@ -29,6 +29,32 @@
 				<input type="submit" value="Search">
 			</form>
 		</div>
+
+{#        filter div begins here.#}
+        <form id="productBrowsePageAction" name="quickFindForm" method="post">
+        <div id="quickFind">
+            <div id="quickFindLeft">
+                <span id="quickFindTitle" class="quickFindTitle">Filter</span>
+                <select class="quickFindDropDown" id="brand" name="brand"
+                        data-none-selected="Please select at least one buyer"
+                        value="[]" multiple="true">
+                    <option value="SHAOYANG" >Shaoyang</option>
+                    <option value="SW">SW</option>
+                    <option value="snowman">Snowman</option>
+                </select>
+                <input id="buyerSelect" class="quickFindSelect" type="text" value="view all buyer" readonly="readonly">
+            </div>
+            <div id="sortBy" >
+
+            </div>
+        </div>
+        </form>
+
+
+
+
+
+
 		<div id="show_items">
 			<div id="add_item">
 				<form action="{{ url_for('add_item') }}">

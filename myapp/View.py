@@ -16,7 +16,7 @@ def login():
     if request.method == 'GET':
         if flask_login.current_user.is_authenticated:
             flash("Already Signed In")
-            return redirect(url_for('home'))
+            return redirect(url_for('protected'))
         return render_template('login.html')
 
     email = request.form.get('email', '')

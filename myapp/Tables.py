@@ -38,3 +38,8 @@ def refresh_all_tables(user_id):
     PurchasedItem.update_all_items(user_id);
     print "PurchasedItem Table Rows: " + str(len(PurchasedItem.all_items))
     print "DeletedItem Table Rows: " + str(len(DeletedItem.all_deleted_items))
+
+
+
+    # This file should be combined with Mydatabase.py file.#
+    # Database Schema #
