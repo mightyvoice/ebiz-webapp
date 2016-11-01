@@ -7,6 +7,19 @@
 		<script src="/static/ebizSys.js"></script>
 	</head>
 	<body>
+{#    flash messages shows here#}
+     {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      {% endwith %}
+
+{#end of flash messages#}
+
 		<h1>eBiz Accounting System</h1>
 
 		<form action="{{url_for('home')}}" method="get">

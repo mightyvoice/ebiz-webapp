@@ -6,5 +6,11 @@
         <input type='password' name='password' id='password' placeholder='password'></input>
         <input type='submit' name='submit'></input>
     </form>
+
+{#    show error info if exists#}
+    {% if error %}
+      <p><strong>Error:</strong> {{ error }}
+    {% endif %}
+
 </body>
 </html>

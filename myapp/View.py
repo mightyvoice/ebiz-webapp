@@ -13,11 +13,12 @@ init_all_tables()
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    error = None
     if request.method == 'GET':
         if flask_login.current_user.is_authenticated:
-            flash("Already Signed In")
-            return redirect(url_for('protected'))
-        return render_template('login.html')
+            flash("You Had Already Signed In")
+            return redirect(url_for('home'))
+        return render_template('login.html', error=error)
 
     email = request.form.get('email', '')
     try:
@@ -26,10 +27,13 @@ def login():
             user = User()
             user.id = email
             flask_login.login_user(user);
-            return redirect(url_for('protected'))
-        return "bad credencials"
+            flash("You were successfully logged in")
+            return redirect(url_for('home'))
+        error = "bad credencials"
+        return render_template("login.html", error=error)
     except User.DoesNotExist:
-        return "User not Exists"
+        error = "User not Exists"
+        return render_template("login.html", error=error)
 
 
 # callback for login failures
@@ -45,18 +49,20 @@ def logout():
     return "You Have Been Successfully Logged Out"
 
 
-@app.route('/protected')
-@flask_login.login_required
-def protected():
-    current_user_id = flask_login.current_user.id
-    refresh_all_tables(current_user_id)
-    # return 'Logged in as: ' + str(flask_login.current_user.username)
-    return redirect(url_for('home'))
+# @app.route('/protected')
+# @flask_login.login_required
+# def protected():
+#     current_user_id = flask_login.current_user.id
+#     refresh_all_tables(current_user_id)
+#     # return 'Logged in as: ' + str(flask_login.current_user.username)
+#     return redirect(url_for('home'))
 
 
 @app.route('/', methods=['GET'])
 @flask_login.login_required
 def home():
+    current_user_id = flask_login.current_user.id
+    refresh_all_tables(current_user_id)
     all_items = PurchasedItem.all_items;
     sumItem = PurchasedItem.summary_item(all_items);
     return render_template("index.html",
