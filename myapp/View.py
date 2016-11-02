@@ -1,6 +1,7 @@
 from myapp import app
 import datetime
 from peewee import *
+from playhouse.shortcuts import model_to_dict, dict_to_model
 from flask import (request, render_template, redirect,
     url_for, request,  make_response, flash)
 import json
@@ -71,7 +72,20 @@ def home():
                            st_date=Lib.get_current_date(),
                            ed_date=Lib.get_current_date(),
                            sumItem=sumItem)
-
+@app.route('/json', methods=["GET"])
+def getItemsInJson():
+    allItems = PurchasedItem.all_items;
+    allItemsInJson = [];
+    res = 0
+    for item in allItems:
+        temp = model_to_dict(item, recurse=False)
+        allItemsInJson.append(temp)
+        print temp
+        res += 1
+    # jsonstring = json.dumps([model_to_dict(item, recurse=False) for item in allItems])
+    # print jsonstring
+    # return allItemsInJson;
+    return render_template('jq_grid.html', allItemsInJson)
 
 @app.route('/', methods=['POST'])
 @flask_login.login_required

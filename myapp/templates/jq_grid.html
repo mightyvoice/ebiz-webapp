@@ -75,33 +75,26 @@
 
             // Examle data for jqGrid
             var mydata = [
-                {id: "1", invdate: "2010-05-24", name: "test", note: "note", tax: "10.00", total: "2111.00"} ,
-                {id: "2", invdate: "2010-05-25", name: "test2", note: "note2", tax: "20.00", total: "320.00"},
-                {id: "3", invdate: "2007-09-01", name: "test3", note: "note3", tax: "30.00", total: "430.00"},
-                {id: "4", invdate: "2007-10-04", name: "test", note: "note", tax: "10.00", total: "210.00"},
-                {id: "5", invdate: "2007-10-05", name: "test2", note: "note2", tax: "20.00", total: "320.00"},
-                {id: "6", invdate: "2007-09-06", name: "test3", note: "note3", tax: "30.00", total: "430.00"},
-                {id: "7", invdate: "2007-10-04", name: "test", note: "note", tax: "10.00", total: "210.00"},
-                {id: "8", invdate: "2007-10-03", name: "test2", note: "note2", amount: "300.00", tax: "21.00", total: "320.00"},
-                {id: "9", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "11", invdate: "2007-10-01", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "12", invdate: "2007-10-02", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "13", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "14", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "15", invdate: "2007-10-05", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "16", invdate: "2007-09-06", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "17", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "18", invdate: "2007-10-03", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "19", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "21", invdate: "2007-10-01", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "22", invdate: "2007-10-02", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "23", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "24", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "25", invdate: "2007-10-05", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "26", invdate: "2007-09-06", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"},
-                {id: "27", invdate: "2007-10-04", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00"},
-                {id: "28", invdate: "2007-10-03", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00"},
-                {id: "29", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00"}
+                {date:"2016-10-21", num:"2", name:"XBOX One S bundle 1", buySingleCost:"209", buyTotalCost:"418",
+                receivedNum:"2", sellSinglePrice:"315", sellTotalPrice: "630", receivedMoney: "630", otherCost: "0",
+                    basicProfit: "212", otherProfit: "0",
+                totalProfit: "212", buyer: "shaoyang", buyPlace: "bestbuy", payCards: "DC", ifDrop: "YES",
+                itemLocation: "HOME", ifRegister: "NO", remark: " ", user: "1"},
+                {date:"2016-10-20", num:"3", name:"XBOX One S bundle 2", buySingleCost:"209", buyTotalCost:"418",
+                    receivedNum:"2", sellSinglePrice:"315",
+                sellTotalPrice: "630", receivedMoney: "630", otherCost: "0", basicProfit: "212", otherProfit: "0",
+                totalProfit: "212", buyer: "somewhat", buyPlace: "bestbuy", payCards: "DC", ifDrop: "YES",
+                itemLocation: "HOME", ifRegister: "NO", remark: " ", user: "1"},
+                {date:"2016-10-01", num:"3", name:"XBOX One S bundle 3", buySingleCost:"209", buyTotalCost:"418",
+                    receivedNum:"2", sellSinglePrice:"315",
+                sellTotalPrice: "630", receivedMoney: "630", otherCost: "0", basicProfit: "212", otherProfit: "0",
+                totalProfit: "212", buyer: "snowman", buyPlace: "bestbuy", payCards: "DC", ifDrop: "YES",
+                itemLocation: "HOME", ifRegister: "NO", remark: " ", user: "1"},
+                {date:"2016-10-15", num:"1", name:"XBOX One S bundle 4", buySingleCost:"209", buyTotalCost:"418",
+                    receivedNum:"2", sellSinglePrice:"315",
+                sellTotalPrice: "630", receivedMoney: "630", otherCost: "12", basicProfit: "200", otherProfit: "0",
+                totalProfit: "200", buyer: "shaoyang", buyPlace: "walmart", payCards: "GC", ifDrop: "YES",
+                itemLocation: "HOME", ifRegister: "NO", remark: " ", user: "1"}
             ];
 
             // Configuration for jqGrid Example 2
@@ -111,17 +104,33 @@
                 height: 450,
                 autowidth: true,
                 shrinkToFit: true,
-                rowNum: 20,
+                rowNum: 10,
                 rowList: [10, 20, 30],
-                colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
+                colNames:['date','name', 'num', 'buySingleCost','buyTotalCost','receivedNum','sellSinglePrice',
+                    'sellTotalPrice', 'receivedMoney', 'otherCost', 'basicProfit', 'otherProfit', 'totalProfit',
+                    'buyer', 'buyPlace', 'payCards', 'ifDrop', 'itemLocation', 'ifRegister', 'remark', 'user'],
                 colModel:[
-                    {name:'id',index:'id', editable: true, width:60, sorttype:"int",search:true},
-                    {name:'invdate',index:'invdate', editable: true, width:90, sorttype:"date", formatter:"date"},
-                    {name:'name',index:'name', editable: true, width:100},
-                    {name:'amount',index:'amount', editable: true, width:80, align:"right",sorttype:"float", formatter:"number"},
-                    {name:'tax',index:'tax', editable: true, width:80, align:"right",sorttype:"float"},
-                    {name:'total',index:'total', editable: true, width:80,align:"right",sorttype:"float"},
-                    {name:'note',index:'note', editable: true, width:100, sortable:false}
+                    {name:'date',index:'date', editable: true, width:90, sorttype:"date",formatter:"date"},
+                    {name:'name',index:'name', editable: true, width:200},
+                    {name:'num',index:'num', editable: true, width:60, align:"right", sorttype:"integer", formatter:"integer"},
+                    {name:'buySingleCost',index:'buySingleCost', editable: true, width:60, sorttype:"float", formatter:"currency"},
+                    {name:'buyTotalCost',index:'buyTotalCost', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'receivedNum',index:'receivedNum', editable: true, width:60, formatter:"integer"},
+                    {name:'sellSinglePrice',index:'sellSinglePrice', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'sellTotalPrice',index:'sellTotalPrice', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'receivedMoney',index:'receivedMoney', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'otherCost',index:'otherCost', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'basicProfit',index:'basicProfit', editable: false, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'otherProfit',index:'otherProfit', editable: true, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'totalProfit',index:'totalProfit', editable: false, width:60,sorttype:"float", formatter:"currency"},
+                    {name:'buyer',index:'buyer', editable: true, width:90},
+                    {name:'buyPlace',index:'buyPlace', editable: true, width:90},
+                    {name:'payCards',index:'payCards', editable: true, width:90},
+                    {name:'ifDrop',index:'ifDrop', editable: true, width:40},
+                    {name:'itemLocation',index:'itemLocation', editable: true, width:60},
+                    {name:'ifRegister',index:'ifRegister', editable: true, width:40},
+                    {name:'remark',index:'remark', editable: true, width:120, sortable:false},
+                    {name:'user',index:'user', editable: false, width:40}
                 ],
                 pager: "#pager_list_2",
                 viewrecords: true,
@@ -157,3 +166,25 @@
 </body>
 
 </html>
+
+date
+number
+name
+buySingleCost
+buyTotalCost
+receivedNum
+sellSinglePrice
+sellTotalPrice
+receivedMoney
+otherCost
+basicProfit
+otherProfit
+totalProfit
+buyer
+buyPlace
+payCards
+ifDrop
+itemLocation
+ifRegister
+remark
+user = ForeignKeyField(User, related_name="purchasedItems", null=False)
