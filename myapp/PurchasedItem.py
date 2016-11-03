@@ -32,6 +32,7 @@ class PurchasedItem(Model):
     remark = TextField();
     user = ForeignKeyField(User, related_name="purchasedItems", null=False)
 
+
     class Meta:
         database = db;
         order_by = ('-date',);

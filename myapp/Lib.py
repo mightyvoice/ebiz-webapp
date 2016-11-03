@@ -13,13 +13,11 @@ def str_to_date(str):
     res = datetime.date(y, m, d)
     return res;
 
-
 def toInt(x):
     try:
         return int(x)
     except:
         return 0
-
 
 def toFloat(x):
     try:

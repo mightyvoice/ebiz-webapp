@@ -3,14 +3,16 @@ import datetime
 from peewee import *
 from playhouse.shortcuts import model_to_dict, dict_to_model
 from flask import (request, render_template, redirect,
-    url_for, request,  make_response, flash)
+    url_for, request,  make_response, flash, Response, jsonify)
 import json
-import Lib
+import os
 from Tables import *
 from User import *
+from flask_cors import CORS, cross_origin
 
 init_all_tables()
 
+CORS(app)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -72,20 +74,46 @@ def home():
                            st_date=Lib.get_current_date(),
                            ed_date=Lib.get_current_date(),
                            sumItem=sumItem)
+
+
+def json_serial(obj):
+    if isinstance(obj, datetime.datetime):
+        serial = obj.isoformat()
+        return serial
+    raise TypeError('Type not serializable')
+
 @app.route('/json', methods=["GET"])
 def getItemsInJson():
-    allItems = PurchasedItem.all_items;
-    allItemsInJson = [];
-    res = 0
+    print "Enter /JSON"
+    sidx = request.args.get('sidx')
+    sord = request.args.get('sord')
+
+
+    allItems = PurchasedItem.all_items
+    jsonData = {}
+    allItemsInJson = []
+    totalRecords = len(allItems)
+    try:
+        print request.args
+        rows = Lib.toInt(request.args.get('rows'))
+        page = Lib.toInt(request.args.get('page'))
+
+        jsonData["page"] = page
+        # jsonData['total'] = (totalRecords+rows)/rows
+    except NameError as error:
+        print "nameError: " + error
+
+    jsonData["records"] = totalRecords
+
     for item in allItems:
         temp = model_to_dict(item, recurse=False)
+        newstr = str(temp["date"])
+        temp["date"] = newstr
         allItemsInJson.append(temp)
-        print temp
-        res += 1
-    # jsonstring = json.dumps([model_to_dict(item, recurse=False) for item in allItems])
-    # print jsonstring
-    # return allItemsInJson;
-    return render_template('jq_grid.html', allItemsInJson)
+
+    jsonData["rows"] = allItemsInJson
+    print jsonData
+    return jsonify(**jsonData)
 
 @app.route('/', methods=['POST'])
 @flask_login.login_required
