@@ -2,11 +2,12 @@
 <html>
 	<head>
 		<title>Index | eBiz Accounting System</title>
-		<link rel="stylesheet" type="text/css" href="/static/styles.css">
+		<link rel="stylesheet" type="text/css" href="/static/custom/styles.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="/static/ebizSys.js"></script>
+		<script src="/static/custom/ebizSys.js"></script>
+
 	</head>
-	<body>
+	<body class="wide">
 {#    flash messages shows here#}
      {% with messages = get_flashed_messages() %}
          {% if messages %}
@@ -22,7 +23,7 @@
 
 		<h1>eBiz Accounting System</h1>
 
-		<form action="{{url_for('home')}}" method="get">
+		<form action="{{url_for('showall')}}" method="get">
 			<input type="submit" class="show_all_btn" value="Show All Items">
 		</form>
 		<form action="{{url_for('show_deleted_item')}}" method="get">
@@ -42,31 +43,6 @@
 				<input type="submit" value="Search">
 			</form>
 		</div>
-
-{#        filter div begins here.#}
-        <form id="productBrowsePageAction" name="quickFindForm" method="post">
-        <div id="quickFind">
-            <div id="quickFindLeft">
-                <span id="quickFindTitle" class="quickFindTitle">Filter</span>
-                <select class="quickFindDropDown" id="brand" name="brand"
-                        data-none-selected="Please select at least one buyer"
-                        value="[]" multiple="true">
-                    <option value="SHAOYANG" >Shaoyang</option>
-                    <option value="SW">SW</option>
-                    <option value="snowman">Snowman</option>
-                </select>
-                <input id="buyerSelect" class="quickFindSelect" type="text" value="view all buyer" readonly="readonly">
-            </div>
-            <div id="sortBy" >
-
-            </div>
-        </div>
-        </form>
-
-
-
-
-
 
 		<div id="show_items">
 			<div id="add_item">
@@ -136,7 +112,7 @@
 				{% endfor %}
 				<!-- <-summary item-> -->
 				<tr>
-					<th align="center" colspan=2>Summary</td>
+					<th align="center" colspan=2>Summary</th>
 					<td> </td>
 					<td> </td>
 					<td> </td>

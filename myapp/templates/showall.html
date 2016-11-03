@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataTables | Table plug-in for jQuery</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            console.log("Enter");
+            $('#myTable').DataTable({
+                "processing": true,
+                "serverside": true,
+                "ajax":{
+                    "url": "http://192.168.2.56:8000/json",
+                    "datatype": "jsonp"
+                },
+                "columns":[
+                    {"data": "date"},
+                    {"data": "name"},
+                    {"data": "number"},
+                    {"data": "buySingleCost"},
+                    {"data": "buyTotalCost"},
+                    {"data": "receivedNum"},
+                    {"data": "sellSinglePrice"},
+                    {"data": "sellTotalPrice"},
+                    {"data": "receivedMoney"},
+                    {"data": "otherCost"},
+                    {"data": "basicProfit"},
+                    {"data": "otherProfit"},
+                    {"data": "totalProfit"},
+                    {"data": "buyer"},
+                    {"data": "buyPlace"},
+                    {"data": "payCards"},
+                    {"data": "ifDrop"},
+                    {"data": "itemLocation"},
+                    {"data": "ifRegister"},
+                    {"data": "remark"},
+                    {"data": "user"}
+                ]
+            });
+        });
+    </script>
+</head>
+<body>
+    <table id="myTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>date</th>
+                <th>name</th>
+                <th>number</th>
+                <th>buySingleCost</th>
+                <th>buyTotalCost</th>
+                <th>receivedNum</th>
+                <th>sellSinglePrice</th>
+                <th>sellTotalPrice</th>
+                <th>receivedMoney</th>
+                <th>otherCost</th>
+                <th>basicProfit</th>
+                <th>otherProfit</th>
+                <th>totalProfit</th>
+                <th>buyer</th>
+                <th>buyPlace</th>
+                <th>payCards</th>
+                <th>ifDrop</th>
+                <th>itemLocation</th>
+                <th>ifRegister</th>
+                <th>remark</th>
+                <th>user</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>date</th>
+                <th>name</th>
+                <th>number</th>
+                <th>buySingleCost</th>
+                <th>buyTotalCost</th>
+                <th>receivedNum</th>
+                <th>sellSinglePrice</th>
+                <th>sellTotalPrice</th>
+                <th>receivedMoney</th>
+                <th>otherCost</th>
+                <th>basicProfit</th>
+                <th>otherProfit</th>
+                <th>totalProfit</th>
+                <th>buyer</th>
+                <th>buyPlace</th>
+                <th>payCards</th>
+                <th>ifDrop</th>
+                <th>itemLocation</th>
+                <th>ifRegister</th>
+                <th>remark</th>
+                <th>user</th>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+</html>

@@ -1,15 +1,13 @@
-from myapp import app
-import datetime
-from peewee import *
 from flask import (request, render_template, redirect,
-    url_for, request,  make_response, flash)
+    url_for, request,  make_response, flash, Response, jsonify)
 import json
-import Lib
 from Tables import *
 from User import *
+from flask_cors import CORS, cross_origin
+from playhouse.shortcuts import model_to_dict, dict_to_model
 
 init_all_tables()
-
+CORS(app)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -85,6 +83,46 @@ def selected_items(saves=""):
     selected_items = PurchasedItem.get_items_time_range(cur_user, st, ed)
     sumdic = PurchasedItem.summary_item(selected_items);
     return render_template("index.html", all_items=selected_items, sumItem=sumdic);
+
+
+
+@app.route('/json', methods=["GET"])
+def getItemsInJson():
+    print "Enter /JSON"
+    sidx = request.args.get('sidx')
+    sord = request.args.get('sord')
+
+
+    allItems = PurchasedItem.all_items
+    jsonData = {}
+    allItemsInJson = []
+    totalRecords = len(allItems)
+    try:
+        print request.args
+        rows = Lib.toInt(request.args.get('rows'))
+        page = Lib.toInt(request.args.get('page'))
+
+        jsonData["page"] = page
+        # jsonData['total'] = (totalRecords+rows)/rows
+    except NameError as error:
+        print "nameError: " + error
+
+    jsonData["records"] = totalRecords
+
+    for item in allItems:
+        temp = model_to_dict(item, recurse=False)
+        newstr = str(temp["date"])
+        temp["date"] = newstr
+        allItemsInJson.append(temp)
+
+    jsonData["data"] = allItemsInJson
+    print jsonData
+    return jsonify(**jsonData)
+
+@app.route('/showall', methods=['GET'])
+@flask_login.login_required
+def showall():
+    return render_template("showall.html")
 
 
 @app.route('/search_by_keyword', methods=['POST'])

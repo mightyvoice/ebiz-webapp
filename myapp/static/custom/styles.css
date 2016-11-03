@@ -55,7 +55,7 @@ h2{
 }
 
 /**********************All purchased Items table******************/
-table {
+/*table {
 	table-layout: fixed;
 }
 
@@ -77,7 +77,7 @@ caption {
 	font-size:20px;
 	margin:5px 0px;
 	font-weight:bold;
-}
+}*/
 .th1 {
 	width:50px;
 }
