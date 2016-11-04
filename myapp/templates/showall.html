@@ -6,19 +6,27 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/custom/datatable.css">
+    {#    <script type="text/javascript" src="/static/jquery-3.1.1.min.js"></script>#}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             console.log("Enter");
             $('#myTable').DataTable({
                 "processing": true,
                 "serverside": true,
-                "ajax":{
+                "ajax": {
                     "url": "http://192.168.2.56:8000/json",
                     "datatype": "jsonp"
                 },
-                "columns":[
+                "scrollY": 550,
+                "scrollX": true,
+                "columns": [
                     {"data": "date"},
                     {"data": "name"},
                     {"data": "number"},
@@ -40,63 +48,72 @@
                     {"data": "ifRegister"},
                     {"data": "remark"},
                     {"data": "user"}
-                ]
+                ],
+                "columnDefs": [
+                    {
+                        "targets": [20],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
             });
         });
     </script>
 </head>
 <body>
-    <table id="myTable" class="display" cellspacing="0" width="100%">
+<div class="col-lg-10 col-lg-offset-1">
+    <table id="myTable" class="display nowrap" cellspacing="0" width="80%">
         <thead>
-            <tr>
-                <th>date</th>
-                <th>name</th>
-                <th>number</th>
-                <th>buySingleCost</th>
-                <th>buyTotalCost</th>
-                <th>receivedNum</th>
-                <th>sellSinglePrice</th>
-                <th>sellTotalPrice</th>
-                <th>receivedMoney</th>
-                <th>otherCost</th>
-                <th>basicProfit</th>
-                <th>otherProfit</th>
-                <th>totalProfit</th>
-                <th>buyer</th>
-                <th>buyPlace</th>
-                <th>payCards</th>
-                <th>ifDrop</th>
-                <th>itemLocation</th>
-                <th>ifRegister</th>
-                <th>remark</th>
-                <th>user</th>
-            </tr>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>BuySingleCost</th>
+            <th>BuyTotalCost</th>
+            <th>ReceivedNum</th>
+            <th>SellSinglePrice</th>
+            <th>SellTotalPrice</th>
+            <th>ReceivedMoney</th>
+            <th>OtherCost</th>
+            <th>BasicProfit</th>
+            <th>OtherProfit</th>
+            <th>TotalProfit</th>
+            <th>Buyer</th>
+            <th>BuyPlace</th>
+            <th>PayCards</th>
+            <th>IfDrop</th>
+            <th>ItemLocation</th>
+            <th>IfRegister</th>
+            <th>Remark</th>
+            <th>User</th>
+        </tr>
         </thead>
         <tfoot>
-            <tr>
-                <th>date</th>
-                <th>name</th>
-                <th>number</th>
-                <th>buySingleCost</th>
-                <th>buyTotalCost</th>
-                <th>receivedNum</th>
-                <th>sellSinglePrice</th>
-                <th>sellTotalPrice</th>
-                <th>receivedMoney</th>
-                <th>otherCost</th>
-                <th>basicProfit</th>
-                <th>otherProfit</th>
-                <th>totalProfit</th>
-                <th>buyer</th>
-                <th>buyPlace</th>
-                <th>payCards</th>
-                <th>ifDrop</th>
-                <th>itemLocation</th>
-                <th>ifRegister</th>
-                <th>remark</th>
-                <th>user</th>
-            </tr>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>BuySingleCost</th>
+            <th>BuyTotalCost</th>
+            <th>ReceivedNum</th>
+            <th>RellSinglePrice</th>
+            <th>SellTotalPrice</th>
+            <th>ReceivedMoney</th>
+            <th>OtherCost</th>
+            <th>BasicProfit</th>
+            <th>OtherProfit</th>
+            <th>TotalProfit</th>
+            <th>Buyer</th>
+            <th>BuyPlace</th>
+            <th>PayCards</th>
+            <th>IfDrop</th>
+            <th>ItemLocation</th>
+            <th>IfRegister</th>
+            <th>Remark</th>
+            <th>User</th>
+        </tr>
         </tfoot>
     </table>
+</div>
 </body>
 </html>
